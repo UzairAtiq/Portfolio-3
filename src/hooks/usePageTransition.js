@@ -36,9 +36,12 @@ export const usePageTransition = (totalPages = 5) => {
       
       if (isScrollingRef.current) return;
       
-      if (e.deltaY > 0) {
+      // Add threshold to prevent multiple triggers
+      const threshold = 30;
+      
+      if (e.deltaY > threshold) {
         nextPage();
-      } else if (e.deltaY < 0) {
+      } else if (e.deltaY < -threshold) {
         previousPage();
       }
     };

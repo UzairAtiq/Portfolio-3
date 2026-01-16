@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import './WorkCard.css';
 
-const WorkCard = ({ number, image, title, tags, delay = 0 }) => {
+const WorkCard = ({ number, image, title, description, demoLink, delay = 0 }) => {
   return (
     <motion.div
       className="work-item"
@@ -23,15 +23,24 @@ const WorkCard = ({ number, image, title, tags, delay = 0 }) => {
           whileHover={{ scale: 1.1, filter: "brightness(1)" }}
           transition={{ duration: 0.6 }}
         />
+        
+        {demoLink && (
+          <motion.a
+            href={demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="demo-button"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            VIEW DEMO ↗
+          </motion.a>
+        )}
       </motion.div>
       
       <div className="work-info">
         <h3>{title}</h3>
-        <div className="work-tags">
-          {tags.map((tag, index) => (
-            <span key={index} className="work-tag">{tag}</span>
-          ))}
-        </div>
+        {description && <p className="work-description">{description}</p>}
       </div>
     </motion.div>
   );

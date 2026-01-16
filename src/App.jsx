@@ -1,17 +1,13 @@
 import { useEffect } from 'react';
 import Navigation from './components/layout/Navigation';
-import PageContainer from './components/layout/PageContainer';
 import HeroSection from './components/sections/HeroSection';
 import ServicesSection from './components/sections/ServicesSection';
 import WorksSection from './components/sections/WorksSection';
 import AboutSection from './components/sections/AboutSection';
 import ContactSection from './components/sections/ContactSection';
-import { usePageTransition } from './hooks/usePageTransition';
 import './App.css';
 
 function App() {
-  const { currentPage, goToPage } = usePageTransition(5);
-
   // Custom cursor effect
   useEffect(() => {
     const cursor = document.createElement('div');
@@ -39,31 +35,33 @@ function App() {
       document.removeEventListener('mousemove', moveCursor);
       cursor.remove();
     };
-  }, [currentPage]);
+  }, []);
 
   return (
     <div className="app">
-      <Navigation currentPage={currentPage} goToPage={goToPage} />
+      <Navigation />
       
-      <PageContainer currentPage={currentPage} pageNumber={1}>
-        <HeroSection goToPage={goToPage} />
-      </PageContainer>
+      <main className="main-content">
+        <section id="home" className="section">
+          <HeroSection />
+        </section>
 
-      <PageContainer currentPage={currentPage} pageNumber={2}>
-        <ServicesSection />
-      </PageContainer>
+        <section id="services" className="section">
+          <ServicesSection />
+        </section>
 
-      <PageContainer currentPage={currentPage} pageNumber={3}>
-        <WorksSection />
-      </PageContainer>
+        <section id="works" className="section">
+          <WorksSection />
+        </section>
 
-      <PageContainer currentPage={currentPage} pageNumber={4}>
-        <AboutSection />
-      </PageContainer>
+        <section id="about" className="section">
+          <AboutSection />
+        </section>
 
-      <PageContainer currentPage={currentPage} pageNumber={5}>
-        <ContactSection />
-      </PageContainer>
+        <section id="contact" className="section">
+          <ContactSection />
+        </section>
+      </main>
     </div>
   );
 }

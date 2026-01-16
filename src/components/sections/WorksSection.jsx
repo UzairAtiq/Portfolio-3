@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import WorkCard from '../ui/WorkCard';
+import { projects } from '../../data/projects';
 import './WorksSection.css';
 
 const WorksSection = () => {
@@ -11,21 +12,6 @@ const WorksSection = () => {
       transition: { duration: 0.6, ease: [0.65, 0, 0.35, 1] },
     },
   };
-
-  const works = [
-    {
-      number: '01',
-      image: '/assets/images/work-1.jpg',
-      title: 'Nura - E-commerce Platform',
-      tags: ['DEVELOPMENT', '2025']
-    },
-    {
-      number: '02',
-      image: '/assets/images/work-2.jpg',
-      title: 'Job Portal - Full-Stack Recruitment Platform',
-      tags: ['DEVELOPMENT', '2025']
-    }
-  ];
 
   return (
     <div className="works-section">
@@ -41,10 +27,14 @@ const WorksSection = () => {
       </div>
 
       <div className="works-grid">
-        {works.map((work, index) => (
+        {projects.map((project, index) => (
           <WorkCard
-            key={index}
-            {...work}
+            key={project.id}
+            number={String(index + 1).padStart(2, '0')}
+            image={project.thumbnail}
+            title={project.title}
+            description={project.description}
+            demoLink={project.demoLink}
             delay={index * 0.2}
           />
         ))}

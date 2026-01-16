@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import './HeroSection.css';
 
-const HeroSection = ({ goToPage }) => {
+const HeroSection = () => {
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -11,11 +11,18 @@ const HeroSection = ({ goToPage }) => {
     },
   };
 
+  const handleContactClick = () => {
+    const contactSection = document.querySelector('#contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="hero-section">
       <div className="hero-content">
         <motion.h1 className="hero-name" variants={itemVariants}>
-          ZUNED AALIM
+          UZAIR ATIQ
         </motion.h1>
         
         <motion.div className="hero-arrow bounce" variants={itemVariants}>
@@ -23,7 +30,7 @@ const HeroSection = ({ goToPage }) => {
         </motion.div>
         
         <motion.p className="hero-subtitle" variants={itemVariants}>
-          Open to job opportunities worldwide.<br />
+          Full-Stack Developer & Designer<br />
           Passionate about building polished,<br />
           intuitive, and thoughtful digital<br />
           experiences that leave a mark.
@@ -32,7 +39,7 @@ const HeroSection = ({ goToPage }) => {
         <motion.button 
           className="cta-button" 
           variants={itemVariants}
-          onClick={() => goToPage(5)}
+          onClick={handleContactClick}
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -40,7 +47,7 @@ const HeroSection = ({ goToPage }) => {
         </motion.button>
         
         <motion.div className="availability" variants={itemVariants}>
-          AVAILABLE FOR WORK<br />JUN'25
+          AVAILABLE FOR WORK<br />NOW
         </motion.div>
       </div>
 

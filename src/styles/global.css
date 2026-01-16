@@ -6,7 +6,8 @@
 }
 
 html {
-  overflow: hidden;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -15,7 +16,7 @@ body {
   color: var(--color-white);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
-  overflow: hidden;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

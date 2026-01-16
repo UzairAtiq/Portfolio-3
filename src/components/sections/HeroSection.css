@@ -5,6 +5,8 @@
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
 }
 
 .hero-content {
@@ -86,6 +88,7 @@
   .hero-section {
     grid-template-columns: 1fr;
     gap: 3rem;
+    padding: 0 1.5rem;
   }
   
   .hero-name {
@@ -94,6 +97,7 @@
   
   .hero-image {
     height: 400px;
+    order: -1;
   }
   
   .availability {
@@ -104,16 +108,43 @@
 }
 
 @media (max-width: 480px) {
+  .hero-section {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+
   .hero-name {
     font-size: 3rem;
     letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-arrow {
+    font-size: 2rem;
+    margin: 1rem 0;
   }
   
   .hero-subtitle {
     font-size: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .hero-subtitle br {
+    display: none;
+  }
+
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 0.875rem;
+    width: 100%;
   }
   
   .hero-image {
     height: 300px;
+  }
+
+  .availability {
+    font-size: 0.75rem;
+    margin-top: 1.5rem;
   }
 }

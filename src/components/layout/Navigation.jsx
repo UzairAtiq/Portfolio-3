@@ -2,29 +2,49 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navigation.css';
 
-const Navigation = ({ currentPage, goToPage }) => {
+const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const navLinks = [
-    { name: 'Services', page: 2 },
-    { name: 'Works', page: 3 },
-    { name: 'About', page: 4 },
-    { name: 'Contact', page: 5 }
+    { name: 'Services', href: '#services' },
+    { name: 'Works', href: '#works' },
+    { name: 'About', href: '#about' },
+    { name: 'Contact', href: '#contact' }
   ];
 
-  const handleLinkClick = (page) => {
-    goToPage(page);
+  const handleLinkClick = (href) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(false);
   };
 
   useEffect(() => {
-    if (currentPage > 1) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  }, [currentPage]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
+      // Update active section based on scroll position
+      const sections = ['home', 'services', 'works', 'about', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
@@ -35,8 +55,8 @@ const Navigation = ({ currentPage, goToPage }) => {
         transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
       >
         <div className="nav-brand">
-          <button onClick={() => goToPage(1)} className="brand-button">
-            Web Developer & Designer
+          <button onClick={() => handleLinkClick('#home')} className="brand-button">
+            Uzair Atiq
           </button>
         </div>
 
@@ -44,8 +64,8 @@ const Navigation = ({ currentPage, goToPage }) => {
           {navLinks.map((link) => (
             <button
               key={link.name}
-              onClick={() => handleLinkClick(link.page)}
-              className={`nav-link ${currentPage === link.page ? 'active' : ''}`}
+              onClick={() => handleLinkClick(link.href)}
+              className={`nav-link ${activeSection === link.href.slice(1) ? 'active' : ''}`}
             >
               {link.name}
             </button>
@@ -84,8 +104,8 @@ const Navigation = ({ currentPage, goToPage }) => {
               {navLinks.map((link, index) => (
                 <motion.button
                   key={link.name}
-                  onClick={() => handleLinkClick(link.page)}
-                  className={`mobile-nav-link ${currentPage === link.page ? 'active' : ''}`}
+                  onClick={() => handleLinkClick(link.href)}
+                  className={`mobile-nav-link ${activeSection === link.href.slice(1) ? 'active' : ''}`}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
