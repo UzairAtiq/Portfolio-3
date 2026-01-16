@@ -32,11 +32,11 @@
 
 /* Adjust specific project thumbnails */
 .work-item:nth-child(1) .work-preview img {
-  object-position: center 60%; /* Anime List Tracker - shift down */
+  object-position: center 30%; /* Anime List Tracker - zoom towards top */
 }
 
 .work-item:nth-child(2) .work-preview img {
-  object-position: center 60%; /* 3D Model Viewer - shift down */
+  object-position: center 30%; /* 3D Model Viewer - zoom towards top */
 }
 
 .demo-button {
