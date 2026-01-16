@@ -1,0 +1,14 @@
+.works-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.works-grid {
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .section-description br {
+    display: none;
+  }
+}

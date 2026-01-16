@@ -1,0 +1,123 @@
+.contact-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.contact-content {
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.contact-content > h2 {
+  font-size: var(--font-size-hero);
+  line-height: 0.9;
+  text-align: center;
+  margin-bottom: 4rem;
+  letter-spacing: -2px;
+}
+
+.contact-form-container {
+  background-color: rgba(26, 26, 26, 0.5);
+  padding: 3rem;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-gray-dark);
+  transition: border-color var(--transition-normal);
+}
+
+.contact-form-container:hover {
+  border-color: var(--color-red);
+}
+
+.contact-form-container h3 {
+  font-size: var(--font-size-h2);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-gray-dark);
+  border-radius: 8px;
+  padding: 1.2rem;
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-size: var(--font-size-body);
+  transition: all var(--transition-normal);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--color-red);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--color-gray-light);
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.submit-button {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  font-size: var(--font-size-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submit-button:hover {
+  color: var(--color-white);
+}
+
+.contact-label {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  text-align: right;
+  font-size: var(--font-size-small);
+  color: var(--color-gray-dark);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .contact-content > h2 {
+    font-size: 3rem;
+  }
+
+  .contact-form-container {
+    padding: 2rem;
+  }
+  
+  .contact-label {
+    position: static;
+    text-align: center;
+    margin-top: 3rem;
+  }
+}
