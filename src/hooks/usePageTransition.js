@@ -15,7 +15,7 @@ export const usePageTransition = (totalPages = 5) => {
 
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 800);
+    }, 500); // Match animation duration for instant next scroll
   }, [currentPage, isTransitioning, totalPages]);
 
   const nextPage = useCallback(() => {
@@ -32,9 +32,13 @@ export const usePageTransition = (totalPages = 5) => {
 
   useEffect(() => {
     let scrollTimeout;
+    let lastScrollTime = 0;
 
     const handleWheel = (e) => {
       if (isTransitioning) return;
+      
+      const now = Date.now();
+      if (now - lastScrollTime < 100) return; // Prevent too rapid scrolling
       
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
@@ -43,7 +47,8 @@ export const usePageTransition = (totalPages = 5) => {
         } else {
           previousPage();
         }
-      }, 50);
+        lastScrollTime = now;
+      }, 10); // Reduced from 50ms to 10ms
     };
 
     const handleKeyDown = (e) => {

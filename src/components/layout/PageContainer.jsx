@@ -14,7 +14,7 @@ const PageContainer = ({ children, currentPage, pageNumber }) => {
       y: '0%',
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: [0.65, 0, 0.35, 1],
       },
     },
@@ -22,7 +22,7 @@ const PageContainer = ({ children, currentPage, pageNumber }) => {
       y: '-20%',
       opacity: 1,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: [0.65, 0, 0.35, 1],
       },
     },
