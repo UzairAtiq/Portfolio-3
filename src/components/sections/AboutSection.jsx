@@ -21,22 +21,6 @@ const AboutSection = () => {
     <div className="about-section">
       <div className="about-layout">
         <div className="about-left">
-          <motion.h2 variants={itemVariants}>
-            DEVELOPER<br />
-            DESIGNER<br />
-            CREATOR/
-          </motion.h2>
-          <motion.div className="about-image" variants={itemVariants}>
-            <motion.img
-              src="/src/image_Hero/_ (1).jpeg"
-              alt="Uzair Atiq"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.6 }}
-            />
-          </motion.div>
-        </div>
-
-        <div className="about-right">
           <motion.h3 variants={itemVariants}>Skills</motion.h3>
 
           <div className="skills-grid">
@@ -96,6 +80,22 @@ const AboutSection = () => {
             <h3>(ABOUT ME)</h3>
             <p>I'm a software engineer driven by a passion for turning ideas into clean, intuitive digital experiences.</p>
             <p>I am a passionate Software Engineer with a knack for building full-stack web applications using modern technologies like Next.js and Tailwind CSS. My journey in tech began with curiosity, fueled by countless hours of experimenting with code and design.</p>
+          </motion.div>
+        </div>
+
+        <div className="about-right">
+          <motion.h2 variants={itemVariants}>
+            DEVELOPER<br />
+            DESIGNER<br />
+            CREATOR/
+          </motion.h2>
+          <motion.div className="about-image" variants={itemVariants}>
+            <motion.img
+              src="/src/image_Hero/_ (1).jpeg"
+              alt="Uzair Atiq"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.6 }}
+            />
           </motion.div>
         </div>
       </div>
