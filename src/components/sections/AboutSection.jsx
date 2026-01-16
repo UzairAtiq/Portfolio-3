@@ -91,7 +91,7 @@ const AboutSection = () => {
           </motion.h2>
           <motion.div className="about-image" variants={itemVariants}>
             <motion.img
-              src="/src/image_Hero/_ (1).jpeg"
+              src="/images/hero/_ (1).jpeg"
               alt="Uzair Atiq"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.6 }}

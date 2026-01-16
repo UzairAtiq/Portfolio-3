@@ -56,7 +56,7 @@ const HeroSection = () => {
         variants={itemVariants}
       >
         <motion.img
-          src="/src/image_Hero/I'm tired.jpeg"
+          src="/images/hero/I'm tired.jpeg"
           alt="Uzair Atiq"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6 }}
