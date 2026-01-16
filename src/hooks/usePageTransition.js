@@ -4,44 +4,37 @@ export const usePageTransition = (totalPages = 5) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [direction, setDirection] = useState('forward');
-  const scrollTimeoutRef = useRef(null);
+  const isScrollingRef = useRef(false);
 
   const goToPage = useCallback((pageNumber) => {
     if (pageNumber === currentPage) return;
     if (pageNumber < 1 || pageNumber > totalPages) return;
-    if (scrollTimeoutRef.current) return;
+    if (isScrollingRef.current) return;
 
+    isScrollingRef.current = true;
     setIsTransitioning(true);
     setDirection(pageNumber > currentPage ? 'forward' : 'backward');
     setCurrentPage(pageNumber);
 
-    scrollTimeoutRef.current = setTimeout(() => {
+    setTimeout(() => {
       setIsTransitioning(false);
-      scrollTimeoutRef.current = null;
-    }, 600);
+      isScrollingRef.current = false;
+    }, 550);
   }, [currentPage, totalPages]);
 
   const nextPage = useCallback(() => {
-    if (scrollTimeoutRef.current) return;
-    const nextPageNumber = currentPage + 1;
-    if (nextPageNumber <= totalPages) {
-      goToPage(nextPageNumber);
-    }
-  }, [currentPage, totalPages, goToPage]);
+    goToPage(currentPage + 1);
+  }, [currentPage, goToPage]);
 
   const previousPage = useCallback(() => {
-    if (scrollTimeoutRef.current) return;
-    const prevPageNumber = currentPage - 1;
-    if (prevPageNumber >= 1) {
-      goToPage(prevPageNumber);
-    }
+    goToPage(currentPage - 1);
   }, [currentPage, goToPage]);
 
   useEffect(() => {
     const handleWheel = (e) => {
       e.preventDefault();
       
-      if (scrollTimeoutRef.current) return;
+      if (isScrollingRef.current) return;
       
       if (e.deltaY > 0) {
         nextPage();
@@ -51,7 +44,7 @@ export const usePageTransition = (totalPages = 5) => {
     };
 
     const handleKeyDown = (e) => {
-      if (scrollTimeoutRef.current) return;
+      if (isScrollingRef.current) return;
       
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
@@ -69,7 +62,7 @@ export const usePageTransition = (totalPages = 5) => {
     };
 
     const handleTouchEnd = (e) => {
-      if (scrollTimeoutRef.current) return;
+      if (isScrollingRef.current) return;
       
       const touchEndY = e.changedTouches[0].clientY;
       const deltaY = touchStartY - touchEndY;
@@ -89,9 +82,6 @@ export const usePageTransition = (totalPages = 5) => {
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('touchstart', handleTouchStart);
