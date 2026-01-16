@@ -1,6 +1,8 @@
 .services-section {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
 }
 
 .section-header {
@@ -29,17 +31,41 @@
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
   gap: 4rem;
   margin-top: 4rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
+  .services-section {
+    padding: 0 1.5rem;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 3rem;
   }
   
   .section-description br {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-section {
+    padding: 0 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .services-grid {
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .section-description {
+    font-size: 0.875rem;
   }
 }
