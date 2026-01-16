@@ -31,24 +31,21 @@ export const usePageTransition = (totalPages = 5) => {
   }, [currentPage, isTransitioning, goToPage]);
 
   useEffect(() => {
-    let scrollTimeout;
     let lastScrollTime = 0;
 
     const handleWheel = (e) => {
       if (isTransitioning) return;
       
       const now = Date.now();
-      if (now - lastScrollTime < 100) return; // Prevent too rapid scrolling
+      if (now - lastScrollTime < 600) return; // Prevent multiple scrolls during transition
       
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        if (e.deltaY > 0) {
-          nextPage();
-        } else {
-          previousPage();
-        }
-        lastScrollTime = now;
-      }, 10); // Reduced from 50ms to 10ms
+      lastScrollTime = now; // Set immediately to prevent double-firing
+      
+      if (e.deltaY > 0) {
+        nextPage();
+      } else {
+        previousPage();
+      }
     };
 
     const handleKeyDown = (e) => {
@@ -90,7 +87,6 @@ export const usePageTransition = (totalPages = 5) => {
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      clearTimeout(scrollTimeout);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('touchstart', handleTouchStart);
