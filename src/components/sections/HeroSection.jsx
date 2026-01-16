@@ -56,8 +56,8 @@ const HeroSection = () => {
         variants={itemVariants}
       >
         <motion.img
-          src="/samurai.jpg"
-          alt="Workspace"
+          src="/src/image_Hero/_ (1).jpeg"
+          alt="Uzair Atiq"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6 }}
         />
