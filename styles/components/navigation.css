@@ -1,0 +1,104 @@
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, transparent 100%);
+    z-index: var(--z-navigation);
+    backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+    font-size: var(--font-size-small);
+    font-weight: 500;
+    color: var(--color-gray-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-link {
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    color: var(--color-white);
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-red);
+    transition: width var(--transition-normal);
+}
+
+.nav-link:hover {
+    color: var(--color-red);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 2px;
+    background-color: var(--color-white);
+    transition: all var(--transition-normal);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--color-near-black);
+        flex-direction: column;
+        padding: 6rem 2rem;
+        gap: 2rem;
+        transition: right var(--transition-slow);
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+}
