@@ -49,7 +49,7 @@ const HeroSection = ({ goToPage }) => {
         variants={itemVariants}
       >
         <motion.img
-          src="/public/samurai.jpg"
+          src="/samurai.jpg"
           alt="Workspace"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6 }}

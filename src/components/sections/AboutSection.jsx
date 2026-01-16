@@ -28,7 +28,7 @@ const AboutSection = () => {
           </motion.h2>
           <motion.div className="about-image" variants={itemVariants}>
             <motion.img
-              src="/public/samurai.jpg"
+              src="/samurai.jpg"
               alt="About workspace"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.6 }}
