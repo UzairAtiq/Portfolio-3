@@ -4,50 +4,68 @@ export const usePageTransition = (totalPages = 5) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [direction, setDirection] = useState('forward');
-  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const lastPageRef = useRef(1);
 
   const goToPage = useCallback((pageNumber) => {
-    if (pageNumber === currentPage || isTransitioning || isScrollingRef.current) return;
+    if (pageNumber === lastPageRef.current) return;
     if (pageNumber < 1 || pageNumber > totalPages) return;
+    if (isTransitioning) return;
 
-    isScrollingRef.current = true;
+    lastPageRef.current = pageNumber;
     setIsTransitioning(true);
     setDirection(pageNumber > currentPage ? 'forward' : 'backward');
     setCurrentPage(pageNumber);
 
-    setTimeout(() => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
       setIsTransitioning(false);
-      isScrollingRef.current = false;
-    }, 700); // Extended to ensure no double-firing
+      scrollTimeoutRef.current = null;
+    }, 600);
   }, [currentPage, isTransitioning, totalPages]);
 
   const nextPage = useCallback(() => {
-    if (currentPage < totalPages && !isTransitioning) {
-      goToPage(currentPage + 1);
+    if (isTransitioning || scrollTimeoutRef.current) return;
+    const nextPageNumber = currentPage + 1;
+    if (nextPageNumber <= totalPages) {
+      goToPage(nextPageNumber);
     }
   }, [currentPage, totalPages, isTransitioning, goToPage]);
 
   const previousPage = useCallback(() => {
-    if (currentPage > 1 && !isTransitioning) {
-      goToPage(currentPage - 1);
+    if (isTransitioning || scrollTimeoutRef.current) return;
+    const prevPageNumber = currentPage - 1;
+    if (prevPageNumber >= 1) {
+      goToPage(prevPageNumber);
     }
   }, [currentPage, isTransitioning, goToPage]);
 
   useEffect(() => {
+    let isProcessing = false;
+
     const handleWheel = (e) => {
       e.preventDefault();
       
-      if (isTransitioning || isScrollingRef.current) return;
+      if (isProcessing || isTransitioning || scrollTimeoutRef.current) return;
+      
+      isProcessing = true;
       
       if (e.deltaY > 0) {
         nextPage();
       } else if (e.deltaY < 0) {
         previousPage();
       }
+      
+      setTimeout(() => {
+        isProcessing = false;
+      }, 100);
     };
 
     const handleKeyDown = (e) => {
-      if (isTransitioning || isScrollingRef.current) return;
+      if (isTransitioning || scrollTimeoutRef.current) return;
       
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         e.preventDefault();
@@ -65,7 +83,7 @@ export const usePageTransition = (totalPages = 5) => {
     };
 
     const handleTouchEnd = (e) => {
-      if (isTransitioning || isScrollingRef.current) return;
+      if (isTransitioning || scrollTimeoutRef.current) return;
       
       const touchEndY = e.changedTouches[0].clientY;
       const deltaY = touchStartY - touchEndY;
@@ -85,6 +103,9 @@ export const usePageTransition = (totalPages = 5) => {
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('touchstart', handleTouchStart);
