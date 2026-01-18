@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import ScreenshotThumbnail from './ScreenshotThumbnail';
 import './WorkCard.css';
 
 const WorkCard = ({ number, image, title, description, demoLink, delay = 0 }) => {
@@ -17,11 +18,10 @@ const WorkCard = ({ number, image, title, description, demoLink, delay = 0 }) =>
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.6 }}
       >
-        <motion.img
-          src={image}
+        <ScreenshotThumbnail
+          url={demoLink}
           alt={title}
-          whileHover={{ scale: 1.1, filter: "brightness(1)" }}
-          transition={{ duration: 0.6 }}
+          fallbackImage={image}
         />
         
         {demoLink && (

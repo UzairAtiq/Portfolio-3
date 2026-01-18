@@ -27,6 +27,10 @@ const ScreenshotThumbnail = ({
   // Get API key from environment variables
   const apiKey = import.meta.env.VITE_SCREENSHOTONE_API_KEY;
 
+  // Debug: Log component render
+  console.log('🔍 ScreenshotThumbnail component rendering for:', url);
+  console.log('🔑 API Key status:', apiKey ? 'Found' : 'NOT FOUND');
+
   /**
    * Build ScreenshotOne API URL
    * 
@@ -40,6 +44,9 @@ const ScreenshotThumbnail = ({
       console.warn('ScreenshotOne API key not found. Using fallback image.');
       return fallbackImage;
     }
+
+    console.log('✅ API Key detected:', apiKey.substring(0, 5) + '...');
+    console.log('📸 Generating screenshot for:', url);
 
     // Base URL for ScreenshotOne API
     const baseUrl = 'https://api.screenshotone.com/take';
@@ -70,7 +77,9 @@ const ScreenshotThumbnail = ({
       dark_mode: 'false'
     });
 
-    return `${baseUrl}?${params.toString()}`;
+    const finalUrl = `${baseUrl}?${params.toString()}`;
+    console.log('🔗 Screenshot URL:', finalUrl.substring(0, 100) + '...');
+    return finalUrl;
   };
 
   const screenshotUrl = buildScreenshotUrl();
