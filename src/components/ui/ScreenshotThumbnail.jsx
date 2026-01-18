@@ -54,9 +54,9 @@ const ScreenshotThumbnail = ({
       // Image format and quality
       format: 'jpg',
       image_quality: '80',
-      // Caching: 24 hours (86400 seconds)
+      // Caching: 3 days (259200 seconds)
       cache: 'true',
-      cache_ttl: '86400',
+      cache_ttl: '259200',
       // Full page screenshot (false for above-the-fold only)
       full_page: 'false',
       // Device emulation
