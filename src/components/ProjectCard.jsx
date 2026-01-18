@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import ScreenshotThumbnail from './ui/ScreenshotThumbnail';
 
 const ProjectCard = ({ project, index }) => {
   const ref = useRef(null);
@@ -25,12 +26,13 @@ const ProjectCard = ({ project, index }) => {
       animate={isInView ? "visible" : "hidden"}
       className="bg-bg-secondary rounded-lg overflow-hidden border border-bg-tertiary hover:border-accent-coral transition-all duration-300 group flex flex-col h-full hover:shadow-xl hover:shadow-accent-coral/20"
     >
-      {/* Thumbnail */}
+      {/* Thumbnail - Dynamic Screenshot */}
       <div className="relative overflow-hidden aspect-video shrink-0">
-        <img
-          src={project.thumbnail}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        <ScreenshotThumbnail
+          url={project.demoLink}
+          alt={`${project.title} screenshot`}
+          fallbackImage={project.thumbnail}
+          className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-linear-to-t from-bg-secondary via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
